@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bot-v-master
+  name: bot-v-master
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bot-v-master
+  template:
+    metadata:
+      labels:
+        app: bot-v-master
+        version: "1.0"
+    spec:
+      containers:
+        - image: kube01:5000/bot-v-master:latest
+          imagePullPolicy: Always
+          name: bot-v-master
+      restartPolicy: Always
+      imagePullSecrets:
+      - name: testuser
+ 
