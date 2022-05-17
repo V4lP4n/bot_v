@@ -13,15 +13,15 @@
             stage('build'){
                 steps{
 
-                    sh("docker build --tag bot-${BRANCH_NAME}-v .")
-                    sh("docker tag bot-${BRANCH_NAME}-v kube01:5000/bot-${BRANCH_NAME}-v")
-                    sh("docker push kube01:5000/bot-${BRANCH_NAME}-v")
+                    sh("docker build --tag bot-v-${BRANCH_NAME} .")
+                    sh("docker tag bot-v-${BRANCH_NAME} kube01:5000/bot-v-${BRANCH_NAME}")
+                    sh("docker push kube01:5000/bot-v-${BRANCH_NAME}")
                 }
             }
             stage('run'){
             steps{
                sh("kubectl apply -f ./manifest_${BRANCH_NAME}.yml")
-               sh("kubectl rollout restart deployment/bot-app-${BRANCH_NAME}")
+               sh("kubectl rollout restart deployment/bot-v-${BRANCH_NAME}")
             }
             }
         }
